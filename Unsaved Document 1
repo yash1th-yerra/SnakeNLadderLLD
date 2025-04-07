@@ -1,0 +1,86 @@
+Snake and Ladder
+----------------------------------------------------------
+
+problem statement:
+    
+    Design a system to simulate the classic board game "Snake and Ladder". Multiple players take turns rolling a dice, moving forward on a board    from cell 1 to 100. If they land on the bottom of a ladder, they move up. If they land on a snake's head, they slide down. First one to reach cell 100 wins.
+    
+    
+Requirement Clarification:
+    
+    1. How many dice? 
+        - 1 that should be configurable.
+    2. How many cells in board? 
+        - board has 100 cells default, but can be configurable 
+    3. Some are head of snake -> drops to lower cell
+    4. some are bottom of ladders -> climbs to higher cell
+    5. how many players 
+        - multiplayer game where players can take turns
+    6. what if a move is invalid (roll + currentposition)>100
+        - skip that turn 
+    . what is the winning condition?
+        - first player whoever reaches 100th cell
+    7. should snake and ladders overlap?
+        - no it will create chaos and confusion 
+          there are certain conditions that shouldn't happen to avoid overlaps:
+            1. two snakes with same head
+            2. two ladders starting at same place
+            3. snake starting from ladder's top
+            4. ladder sstarting from snake's tail
+            
+            
+    8. How many snakes and ladders?
+        - 5,5 by default but can be configurable
+        
+    9.Any bot players ? optional 
+        - we can keep an enum and add some bot player functionality later but by default its 2 human players
+        
+        
+Entities:
+    1. board(we can even keep map datastructure for snakes and ladders in board itself and avoid creating seperate entities but however if we want any customization we can't able to do if we don't have seperate entity)
+    2. dice
+    3. player
+    4. snake 
+    5. ladder
+    6. cell
+    7. game
+    
+    
+    
+Entity Construction:
+
+    
+    
+    Player:
+        - id:String
+        - name:String(optional)
+        - currentPosition:int
+        + getter and setters
+        
+    Dice:
+        - diceCount:int
+        + roll()
+        
+    Jump:(instead of snake and ladder we create more generic one as both do the same task of jumping from one cell to another cell)
+        - start:int
+        - end:int
+        
+        
+    Cell:
+        - jump:Jump
+        
+    Board:
+        - cells:Cell[][]
+        
+        
+    Game:
+        - board:Board
+        - dice:Dice
+        - players:Deque<Player>
+        
+        
+        
+             
+        
+        
+        
