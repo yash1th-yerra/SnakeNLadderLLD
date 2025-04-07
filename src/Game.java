@@ -1,5 +1,6 @@
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Game {
     private Board board;
@@ -11,22 +12,32 @@ public class Game {
         initializeGame();
     }
 
+    public Game(int boardSize,int noOfSnakes,int noOfLadders,int diceCount,int noOfPlayers){
+        initializeGame(boardSize,noOfSnakes,noOfLadders,diceCount,noOfPlayers);
+    }
+    public void addPlayers(int noOfPlayers){
+        for(int i=1;i<=noOfPlayers;i++){
+            players.add(new Player("p"+i,0));
+
+        }
+
+    }
+    private void initializeGame(int boardSize,int noOfSnakes,int noOfLadders,int diceCount,int noOfPlayers){
+        board = new Board(boardSize,noOfSnakes,noOfLadders);
+        dice = new Dice(diceCount);
+        winner = null;
+        addPlayers(noOfPlayers);
+
+    }
     private void initializeGame(){
         board = new Board(10,5,4);
         dice = new Dice(1);
         winner = null;
-        addPlayers();
+        addPlayers(5);
 
     }
 
-    private void addPlayers(){
-        Player player1 = new Player("p1",0);
-        Player player2 = new Player("p2",0);
-        players.add(player1);
-        players.add(player2);
 
-
-    }
 
     private Player findPlayerTurn(){
         Player playerTurn = players.removeFirst();
