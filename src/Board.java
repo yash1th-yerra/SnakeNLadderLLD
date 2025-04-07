@@ -1,8 +1,12 @@
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Board {
     private Cell[][] cells;
     private int size;
+    private Set<Integer> usedStart = new HashSet<>();
+    private Set<Integer> usedEnd = new HashSet<>();
 
     public int getSize() {
         return size;
@@ -36,7 +40,10 @@ public class Board {
             int snakeTail = ThreadLocalRandom.current().nextInt(1, cells.length* cells.length-1);
 
             if(snakeTail>snakeHead) continue;
+            if (usedStart.contains(snakeHead) || usedEnd.contains(snakeTail)) continue;
 
+            usedStart.add(snakeHead);
+            usedEnd.add(snakeTail);
             Jump snakeJump = new Jump();
             snakeJump.setStart(snakeHead);
             snakeJump.setEnd(snakeTail);
@@ -52,6 +59,10 @@ public class Board {
             int ladderBottom = ThreadLocalRandom.current().nextInt(1, cells.length* cells.length-1);
             int ladderTop = ThreadLocalRandom.current().nextInt(1, cells.length* cells.length-1);
             if(ladderBottom>ladderTop) continue;
+            if (usedStart.contains(ladderBottom) || usedEnd.contains(ladderTop)) continue;
+
+            usedStart.add(ladderBottom);
+            usedEnd.add(ladderTop);
 
             Jump ladderJump = new Jump();
             ladderJump.setStart(ladderBottom);
